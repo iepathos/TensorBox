@@ -16,7 +16,6 @@ import argparse
 import os
 import tensorflow as tf
 import numpy as np
-from tensorflow.models.rnn import rnn_cell
 from tensorflow.python.framework import ops
 from tensorflow.python.ops import array_ops
 
@@ -30,9 +29,9 @@ def build_lstm_inner(lstm_input, H):
     '''
     build lstm decoder
     '''
-    lstm_cell = rnn_cell.BasicLSTMCell(H['arch']['lstm_size'], forget_bias=0.0)
+    lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(H['arch']['lstm_size'], forget_bias=0.0)
     if H['arch']['num_lstm_layers'] > 1:
-        lstm = rnn_cell.MultiRNNCell([lstm_cell] * H['arch']['num_lstm_layers'])
+        lstm = tf.nn.rnn_cell.MultiRNNCell([lstm_cell] * H['arch']['num_lstm_layers'])
     else:
         lstm = lstm_cell
 
